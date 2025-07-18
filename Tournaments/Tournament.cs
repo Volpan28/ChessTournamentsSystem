@@ -2,10 +2,13 @@ abstract class Tournament
 {
     private string id;
     private string name;
+    //локальний словник гравців, які беруть участь у конкретному турнірі
     private Dictionary<string, Player> players;
     private List<Match> matches;
     private HashSet<string> playedPairs;
     private Dictionary<string, float> playersPoints;
+    private List<List<(string Player1Id, string Player2Id)>> allRounds;
+    protected List<(string, string)> nextRoundPairs;
 
     public string Id { get; private set; }
     public string Name { get; private set; }
@@ -13,6 +16,8 @@ abstract class Tournament
     public List<Match> Matches => matches;
     public HashSet<string> PlayedPairs => playedPairs;
     public Dictionary<string, float> PlayersPoints => playersPoints;
+    public List<List<(string Player1Id, string Player2Id)>> AllRounds => allRounds;
+    public List<(string, string)> NextRoundPairs => nextRoundPairs;
 
     public Tournament(string id, string name)
     {
@@ -22,6 +27,8 @@ abstract class Tournament
         this.matches = new List<Match>();
         this.playedPairs = new HashSet<string>();
         this.playersPoints = new Dictionary<string, float>();
+        this.allRounds = new List<List<(string Player1Id, string Player2Id)>>();
+        this.nextRoundPairs = new List<(string, string)>();
     }
 
     public void AddPlayer(Player player)
@@ -86,5 +93,5 @@ abstract class Tournament
         return $"Tournament {Name}, ID: {Id}, Players: {Players}, Matches: {Matches}";
     }
 
-    public abstract HashSet<string> GeneratePairs();
+    public abstract List<(string, string)> GeneratePairs();
 }

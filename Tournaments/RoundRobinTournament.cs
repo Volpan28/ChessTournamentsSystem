@@ -1,9 +1,9 @@
 class RoundRobinTournament : Tournament
 {
     public RoundRobinTournament(string id, string name) : base(id, name) { }
-    public override HashSet<string> GeneratePairs()
+    public override List<(string, string)> GeneratePairs()
     {
-        HashSet<string> unplayedPairs = new HashSet<string>();
+        List<(string, string)> unplayedPairs = new List<(string, string)>();
 
         var playersList = Players.Values.ToList();
 
@@ -20,10 +20,12 @@ class RoundRobinTournament : Tournament
 
                 if (!PlayedPairs.Contains(pairKey))
                 {
-                    unplayedPairs.Add(pairKey);
+                    unplayedPairs.Add((player1.Id, player2.Id));
                 }
             }
         }
+        nextRoundPairs = unplayedPairs;
+
         return unplayedPairs;
     }
 

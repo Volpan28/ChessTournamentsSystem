@@ -3,9 +3,9 @@ class SwissTournament : Tournament
 {
     public SwissTournament(string id, string name) : base(id, name) { }
 
-    public override HashSet<string> GeneratePairs()
+    public override List<(string, string)> GeneratePairs()
     {
-        HashSet<string> newPair = new HashSet<string>();
+        List<(string, string)> unplayedPairs = new List<(string, string)>();
         HashSet<string> playersThatPlayed = new HashSet<string>();
 
         var playersList = Players.Values.OrderByDescending
@@ -26,7 +26,7 @@ class SwissTournament : Tournament
 
                     if (!PlayedPairs.Contains(pairKey))
                     {
-                        newPair.Add(pairKey);
+                        unplayedPairs.Add((player1.Id, player2.Id));
 
                         playersThatPlayed.Add(player1.Id);
                         playersThatPlayed.Add(player2.Id);
@@ -43,7 +43,9 @@ class SwissTournament : Tournament
             PlayersPoints[playerNoPair.Id] += 0.5f;
         }
 
-        return newPair;
+        nextRoundPairs = unplayedPairs;
+
+        return unplayedPairs;
     }
 
     public override string GetTournamentInfo()

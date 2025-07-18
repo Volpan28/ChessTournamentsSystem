@@ -1,0 +1,19 @@
+/TournamentApp
+│
+├── Models/
+│   ├── Player.cs
+│   ├── ProPlayer.cs
+│   ├── Match.cs
+│   └── Enums.cs       ← MatchResult enum
+│
+├── Tournaments/
+│   ├── Tournament.cs  ← abstract class
+│   ├── RoundRobinTournament.cs
+│   └── SwissTournament.cs
+│
+├── Services/
+│   ├── ITournamentManager.cs ← interface 
+│   └── TournamentManager.cs
+│
+├── Program.cs         ← Main 
+└── tournament.json    ← serialized data
